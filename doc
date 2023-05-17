@@ -1,0 +1,5 @@
+1) npm i  -g express-generator
+2) express -h
+3) express --no-view
+4) npm i dotenv concurrently
+5) npm i -D nodemon
