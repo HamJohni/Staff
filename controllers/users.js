@@ -42,7 +42,7 @@ const register = async (req, res) =>  {
     const {email, password, name} = req.body
 
     if(!email || !password || !name){
-        return res.send(400).json({message: "Пожалуйста, заполните обязательные поля"})
+        return res.status(400).json({message: "Пожалуйста, заполните обязательные поля"})
     }
 
     const registeredUser = await prisma.user.findFirst({
@@ -58,7 +58,7 @@ const register = async (req, res) =>  {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.create({
         data: {
             email,
             name,
