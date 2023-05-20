@@ -14,4 +14,6 @@ app.use(cookieParser());
 
 app.use('/api/user', require('./routes/users'));
 
+app.use('/api/employees', require('./routes/employees'));
+
 module.exports = app;
