@@ -83,7 +83,7 @@ const register = async (req, res) =>  {
                 token: jwt.sign({id: user.id}, secret, {expiresIn: "30d"})
             })
         }else {
-            return res.status(400).json({message: "Не удалось создать пользователя"})
+            return res.status(400).json({message: "Не удалось создать пользователя !"})
         }
     }catch (err){
         alert(err.message)
