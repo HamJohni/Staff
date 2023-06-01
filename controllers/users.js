@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken')
  **/
 const login = async (req, res) =>  {
     const {email, password} = req.body
-
     try {
         if(!email || !password){
             return res.status(400).json({message: "Пожалуйста, заполните обязательные поля"})
