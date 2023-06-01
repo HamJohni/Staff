@@ -47,7 +47,7 @@ const add = async (req,res) => {
  * @access Private
  **/
 const remove = async (req,res) => {
-    const {id} = req.body
+    const {id} = req.params
 
     try {
         await prisma.employee.delete({
@@ -56,7 +56,7 @@ const remove = async (req,res) => {
             }
         })
 
-        res.status(204).json("OK")
+        res.status(200).json("Пользователь успешно удален")
     }catch{
         res.status(400).json({message: "Не удалось удалить сотрудника..."})
     }
@@ -70,7 +70,7 @@ const remove = async (req,res) => {
  **/
 const edit = async (req,res) => {
     const data = req.body
-    const id = data.id
+    const {id} = req.params
 
     try {
         await prisma.employee.update({
@@ -81,7 +81,7 @@ const edit = async (req,res) => {
             data: data
         })
 
-        res.status(204).json("OK")
+        res.status(200).json("Пользователь успешно отредактирован")
     }catch (err){
         res.status(400).json({message: "Не удалось редактировать сотрудника..."})
     }
