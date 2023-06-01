@@ -14,7 +14,6 @@ const all = async (req,res) => {
     }
 }
 
-
 /**
  * @route POST /api/employees/add
  * @desc Добавление сотрудника
