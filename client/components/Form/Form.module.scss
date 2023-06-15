@@ -1,0 +1,33 @@
+.form{
+  border-radius: 10px;
+  border: 1px solid ;
+  box-shadow: 0 0 10px #ffffff90;
+  margin: 100px 0;
+  width: 30%;
+
+  h2{
+    padding: 20px;
+    border-bottom: 1px solid white;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  &__input{
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    outline: none;
+  }
+
+  &__content{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    label{
+      width: 100%;
+    }
+  }
+
+
+}

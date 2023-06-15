@@ -1,6 +1,10 @@
+import Form from "@/components/Form/Form";
+
 const login = () => {
     return(
-        <div>Login</div>
+        <section className="auth">
+            <Form/>
+        </section>
     )
 }
 

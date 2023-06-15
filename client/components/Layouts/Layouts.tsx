@@ -1,11 +1,14 @@
 import React, {ReactNode} from 'react';
-import main from './Layouts.module.scss'
+import Header from "@/components/Layouts/Header/Header";
+import Footer from "@/components/Layouts/Footer/Footer";
 
 const Layouts = ({children}: ReactNode) => {
     return (
-        <div className={main.container}>
+        <>
+            <Header/>
             {children}
-        </div>
+            <Footer/>
+        </>
     );
 };
 
