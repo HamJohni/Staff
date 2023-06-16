@@ -1,6 +1,10 @@
+import Form from "@/components/Form/Form";
+
 const register = () => {
     return(
-        <div>Register</div>
+        <section className="auth">
+            <Form/>
+        </section>
     )
 }
 
