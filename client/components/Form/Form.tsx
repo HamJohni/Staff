@@ -8,8 +8,8 @@ import {useState} from "react";
 type fromData = {
     name: string | null,
     email: string,
-    password: string
-    confirm: string
+    password: string,
+    confirm: string,
 }
 
 const Form = () => {
@@ -17,10 +17,22 @@ const Form = () => {
     const [show, setShow] = useState(false)
     const [show2, setShow2] = useState(false)
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<fromData>();
+    const { register, handleSubmit,getValues, formState: { errors } } = useForm<fromData>();
+
+    const submit = (data: fromData) => {
+        pathname === '/register'? auth(data) : login(data)
+    }
+
+    const login = (data) => {
+
+    }
+
+    const auth = (data) => {
+
+    }
 
     return (
-        <form className={f.form}>
+        <form noValidate className={f.form} onSubmit={handleSubmit(submit)}>
             <h2>
                 {
                     pathname === '/register' ?
@@ -30,43 +42,112 @@ const Form = () => {
 
             <div className={f.form__content}>
 
+                {
+                    pathname === '/register' ?
+                        <label>
+                            <input
+                                {...register('name', {
+                                    required: {
+                                        message: "Обязательное поле",
+                                        value: true
+                                    }
+                                })}
+                                type="text"
+                                placeholder='Имя'
+                                className={f.form__input} />
+                            <p>{errors.name && errors.name.message}</p>
+                        </label> : ''
+                }
+
                 <label>
-                    <input placeholder='Имя' className={f.form__input} />
-                    <p>Обязательное поле</p>
+                    <input
+                        {...register('email', {
+                            required: {
+                                message: "Обязательное поле",
+                                value: true
+                            },
+                            pattern: {
+                                message: "Напишите правильно",
+                                value: /^[^]+@[^ ]+\.[a-z]{2,5}$/
+                            }
+                        })}
+                        type="email"
+                        placeholder='Email'
+                        className={f.form__input} />
+                    <p>{errors.email && errors.email.message}</p>
                 </label>
 
                 <label>
-                    <input placeholder='Email' className={f.form__input} />
-                    <p>Обязательное поле</p>
-                </label>
+                    <input
 
-                <label>
-                    <input placeholder='Пароль' className={f.form__input}/>
+                        {...register('password',{
+                            required: {
+                                message: "Обязательное поле",
+                                value: true
+                            },
+                            pattern:{
+                                value: /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
+                                message: "Слишком легкий пароль"
+                            }})}
+
+                        type={show? "text" : "password"}
+                        placeholder='Пароль'
+                        className={f.form__input}/>
+
                     <span onClick={() => setShow(prev => !prev)}>
                         {
                             !show? <HiEye size={20}/>:<HiEyeOff size={20}/>
                         }
                     </span>
-                    <p>Обязательное поле</p>
+
+                    <p>{errors.password && errors.password.message}</p>
                 </label>
 
-                <label>
-                    <input placeholder='Подтвердите пароль' className={f.form__input}/>
-                    <span onClick={() => setShow2(prev => !prev)}>
-                        {
-                            !show2? <HiEye size={20}/>:<HiEyeOff size={20}/>
-                        }
-                    </span>
-                    <p>Обязательное поле</p>
-                </label>
+                {
+                    pathname === '/register' ?
+                        <label>
+                            <input
+                                {...register('confirm', {
+                                    required: {
+                                        message: "Подтвердите пароль",
+                                        value: true
+                                    },
+                                    validate: (v) => {
+                                        if(getValues('password') !== v){
+                                            return "Не совпадает"
+                                        }
+                                    }
+                                })}
+                                type={show2? "text" : "password"}
+                                placeholder='Подтвердите пароль'
+                                className={f.form__input}/>
+
+                            <span onClick={() => setShow2(prev => !prev)}>
+                                {
+                                    !show2? <HiEye size={20}/>:<HiEyeOff size={20}/>
+                                }
+                            </span>
+
+                            <p>{errors.confirm && errors.confirm.message}</p>
+                        </label> : ''
+                }
 
             </div>
 
             <div className={f.form__box}>
-                <button>Войти</button>
+                <button>
+                    {
+                        pathname === '/register' ? "Зарегистрироваться" : "Войти"
+                    }
+                </button>
             </div>
+            {
+                pathname === '/register' ?
+                    <p>Уже есть аккаунт? <Link href="/login">Войти</Link></p>
+                    :
+                    <p>Нет аккаунта? <Link href="/register">Зарегистрироваться</Link></p>
+            }
 
-            <p>Нет аккаунта? <Link href="/register">Зарегстрируйтесь</Link></p>
         </form>
     );
 };
